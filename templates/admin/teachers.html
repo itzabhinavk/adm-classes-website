@@ -1,0 +1,265 @@
+<?php
+session_start();
+// later: admin auth check
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Manage Teachers | ADM Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Poppins,sans-serif;background:#f4f6f8}
+
+/* layout */
+.wrapper{display:flex;min-height:100vh}
+
+/* sidebar */
+.sidebar{
+  width:230px;
+  background:#111827;
+  color:#fff;
+  padding:20px;
+}
+.sidebar h2{text-align:center;margin-bottom:25px}
+.sidebar a{
+  display:block;
+  padding:12px;
+  margin-bottom:8px;
+  text-decoration:none;
+  color:#cbd5e1;
+  border-radius:6px;
+}
+.sidebar a.active,
+.sidebar a:hover{
+  background:#1f2937;
+  color:#fff;
+}
+
+/* main */
+.main{flex:1;padding:20px}
+
+/* header */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+.btn{
+  padding:10px 16px;
+  border:none;
+  background:#2563eb;
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* table */
+.box{
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  overflow-x:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+th,td{
+  padding:14px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+}
+th{background:#f9fafb}
+.badge{
+  padding:5px 10px;
+  border-radius:12px;
+  font-size:.8rem;
+}
+.active{background:#dcfce7;color:#166534}
+.inactive{background:#fee2e2;color:#991b1b}
+
+.action{
+  padding:6px 10px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:.85rem;
+}
+.edit{background:#16a34a;color:#fff}
+.toggle{background:#f59e0b;color:#fff}
+
+/* modal */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+.modal-box{
+  background:#fff;
+  width:95%;
+  max-width:420px;
+  padding:25px;
+  border-radius:10px;
+}
+.modal-box h3{margin-bottom:15px}
+.modal-box input{
+  width:100%;
+  padding:10px;
+  margin-bottom:12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+.close{background:#6b7280}
+.active{
+  background-color: #1f2937;
+  color: #ffffff;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>ADM Admin</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="courses.html">Courses</a>
+    <a class="active" href="#">Teachers</a>
+    <a href="students.html">Students</a>
+    <a href="settings.html">Settings</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="topbar">
+      <h3>Teacher Management</h3>
+      <button class="btn" onclick="openModal()">+ Add Teacher</button>
+    </div>
+
+    <div class="box">
+      <table id="teacherTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Rakesh Kumar</td>
+            <td>Physics</td>
+            <td>rakesh@adm.com</td>
+            <td><span class="badge active">Active</span></td>
+            <td>
+              <button class="action edit" onclick="editTeacher(this)">Edit</button>
+              <button class="action toggle" onclick="toggleStatus(this)">Disable</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="teacherModal">
+  <div class="modal-box">
+    <h3 id="modalTitle">Add Teacher</h3>
+    <input type="text" id="tName" placeholder="Teacher Name">
+    <input type="text" id="tSubject" placeholder="Subject">
+    <input type="email" id="tEmail" placeholder="Email">
+
+    <div class="modal-actions">
+      <button class="btn close" onclick="closeModal()">Cancel</button>
+      <button class="btn" onclick="saveTeacher()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let editRow=null;
+
+function openModal(){
+  document.getElementById("teacherModal").style.display="flex";
+}
+
+function closeModal(){
+  document.getElementById("teacherModal").style.display="none";
+  editRow=null;
+  tName.value=tSubject.value=tEmail.value="";
+}
+
+function saveTeacher(){
+  if(!tName.value || !tSubject.value || !tEmail.value){
+    alert("All fields required");
+    return;
+  }
+
+  if(editRow){
+    editRow.cells[1].innerText=tName.value;
+    editRow.cells[2].innerText=tSubject.value;
+    editRow.cells[3].innerText=tEmail.value;
+  }else{
+    const table=document.querySelector("#teacherTable tbody");
+    const row=table.insertRow();
+    row.innerHTML=`
+      <td>${table.rows.length}</td>
+      <td>${tName.value}</td>
+      <td>${tSubject.value}</td>
+      <td>${tEmail.value}</td>
+      <td><span class="badge active">Active</span></td>
+      <td>
+        <button class="action edit" onclick="editTeacher(this)">Edit</button>
+        <button class="action toggle" onclick="toggleStatus(this)">Disable</button>
+      </td>`;
+  }
+  closeModal();
+}
+
+function editTeacher(btn){
+  editRow=btn.closest("tr");
+  tName.value=editRow.cells[1].innerText;
+  tSubject.value=editRow.cells[2].innerText;
+  tEmail.value=editRow.cells[3].innerText;
+  openModal();
+}
+
+function toggleStatus(btn){
+  const badge=btn.closest("tr").querySelector(".badge");
+  if(badge.classList.contains("active")){
+    badge.className="badge inactive";
+    badge.innerText="Inactive";
+    btn.innerText="Enable";
+  }else{
+    badge.className="badge active";
+    badge.innerText="Active";
+    btn.innerText="Disable";
+  }
+}
+</script>
+
+</body>
+</html>

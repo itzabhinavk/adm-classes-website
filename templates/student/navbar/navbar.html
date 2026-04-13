@@ -1,0 +1,35 @@
+  <header>
+        <div class="logo-section">
+      <div class="logo-left">
+        <img src="../../static/images/logo.png" alt="ADM Logo" />
+        <div class="logo-text">ADM Classes</div>
+      </div>
+      <div class="auth-buttons">
+        <a href="#" onclick="openModal('login')">Login</a>
+        <a href="#" onclick="openModal('register')">Register</a>
+        <button class="toggle-btn" onclick="toggleMode()">🌙</button>
+      </div>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+  </header> 
+
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="notes.html">Notes</a>
+      <a href="videos.html">Videos</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html" class="active">About</a>
+    </div>
+  </nav>
+
+
+<script>
+    function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("active");
+    }
+</script>

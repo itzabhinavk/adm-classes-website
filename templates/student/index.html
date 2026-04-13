@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ADM Classes - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  
+  </head>
+<body>
+      <div class="blur-bg" id="blurBg"></div>
+
+     
+      <header>
+        <div class="logo-section">
+          <div class="logo-left" >
+            <a href="{{ url_for('student.dashboard') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="ADM Logo"/></a>
+            <div class="logo-text">ADM Classes</div>
+          </div>
+
+          <div class="nav-area">
+            <div class="nav-area1">
+              <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search courses, notes, teachers..." autocomplete="off" />
+                <button class="search-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+              </div>
+              <ul class="search-suggestions" id="searchSuggestions" aria-hidden="true"></ul>
+            </div>
+          </div>
+
+          <div class="auth-buttons">
+            <span class="user-info">Hi, {{ user_name }}</span>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+            <button class="toggle-btn" onclick="toggleMode()">🌙</button>
+          </div>
+          <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+      </header>
+
+  <nav>
+    <div class="nav-links" id="navLinks">
+      <a href="{{ url_for('student.dashboard') }}" class="active">Home</a>
+      <a href="{{ url_for('student.courses') }}">Courses</a>
+      <a href="../notes/notes.html">Notes</a>
+      <a href="../videos/videos.html">Videos</a>
+      <a href="../quiz/quiz.html">Quiz</a>
+      <a href="../contact/contact.html">Contact</a>
+      <a href="../about/about.html">About</a>
+    </div>
+  </nav>
+  
+  <!-- Poster / Promotional banner (moved below hero as carousel) -->
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Welcome to ADM Classes</h1>
+      <p>A Great Place to Learn for 8th to 12th & Competitive Exams</p>
+      <a href="../courses/courses.html" onclick="alert('Not avilable any courses ');"><button class="btn">Explore Courses</button></a>
+    </div>
+  </section>
+
+  <!-- Carousel / Poster Slider -->
+  <section class="carousel" aria-label="Promotional slides">
+    <div class="slides" id="carouselSlides">
+      <div class="slide"><img src="../../static/images/slide1.jpg" alt="Slide 1"></div>
+      <div class="slide"><img src="../../static/images/slide2.jpg" alt="Slide 2"></div>
+      <div class="slide"><img src="../../static/images/slide3.jpg" alt="Slide 3"></div>
+    </div>
+    <button class="prev" id="prevBtn" aria-label="Previous">&#10094;</button>
+    <button class="next" id="nextBtn" aria-label="Next">&#10095;</button>
+    <div class="dots" id="carouselDots"></div>
+  </section>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2>Login</h2>
+    <input type="email" placeholder="Email" />
+    <input type="password" placeholder="Password" />
+    <a href="#" onclick="alert('Login successful!');"><button>Login</button></a>
+    <div class="switch">Not registered? <a href="#" onclick="switchModal('register')">Register here</a></div>
+  </div>
+
+  <!-- Quick Links (useful homepage shortcuts) -->
+  <section class="quick-links">
+    <div class="q-card">
+      <h4>Popular Courses</h4>
+      <p>Physics, Chemistry, Math crash courses</p>
+    </div>
+    <div class="q-card">
+      <h4>Upcoming Exams</h4>
+      <p>Exam schedule & tips</p>
+    </div>
+    <div class="q-card">
+      <h4>Latest Notes</h4>
+      <p>Download concise topic-wise notes</p>
+    </div>
+    <div class="q-card">
+      <h4>Tutorials</h4>
+      <p>Step-by-step video tutorials</p>
+    </div>
+  </section>
+
+  <!-- Recommended courses from backend -->
+  <section class="courses-container">
+    <h2>Recommended Courses</h2>
+    <div class="course-grid">
+      {% if courses %}
+        {% for course in courses %}
+          <div class="course-card">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Course Logo">
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.description }}</p>
+            <a href="{{ url_for('student.courses') }}">View Courses</a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No courses available at the moment. Please check back later.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Register Modal -->
+  <div class="modal" id="registerModal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2>Register</h2>
+    <input type="text" placeholder="Full Name" />
+    <input type="email" placeholder="Email" />
+    <input type="tel" placeholder="Mobile Number" />
+    <input type="password" placeholder="Password" />
+    <a href="#" onclick="alert('Registration successful!');"><button>Register</button></a>
+    <div class="switch">Already registered? <a href="#" onclick="switchModal('login')">Login here</a></div>
+  </div>
+
+  <footer>
+    <div>
+      <h4>About ADM</h4>
+      <ul>
+        <li><a href="../about/about.html">Our Mission</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="videos.html">Videos</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <ul>
+        <li><a href="../contact/contact.html">Contact</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 ADM Classes | Designed with ❤️ by Abhinav
+    </div>
+  </footer>
+
+  
+  <script src="../../static/js/script.js"></script>
+  <script>
+    // Notice close
+    function closeNotice(){
+      var n = document.getElementById('noticeBar'); if(n) n.style.display='none';
+    }
+
+    // Show notice bar and hero animation after load
+    document.addEventListener('DOMContentLoaded', function(){
+      var nb = document.getElementById('noticeBar'); if(nb) setTimeout(function(){ nb.classList.add('show'); }, 220);
+      var hero = document.querySelector('.hero'); if(hero) hero.classList.add('show');
+    });
+
+    // Simple client-side search suggestions (example)
+    (function(){
+      var items = ['Physics','Chemistry','Mathematics','Biology','Computer Science','Class 10 Notes','Class 12 Notes','Exam Tips'];
+      var input = document.getElementById('searchInput');
+      var list = document.getElementById('searchSuggestions');
+      if(!input||!list) return;
+      input.addEventListener('input', function(){
+        var q = this.value.trim().toLowerCase();
+        list.innerHTML='';
+        if(!q){ list.style.display='none'; return; }
+        var matches = items.filter(function(it){return it.toLowerCase().indexOf(q)!==-1}).slice(0,6);
+        if(matches.length===0){ list.style.display='none'; return; }
+        matches.forEach(function(m){
+          var li = document.createElement('li'); li.textContent = m; li.onclick = function(){ input.value = m; list.style.display='none'; };
+          list.appendChild(li);
+        });
+        list.style.display = 'block';
+      });
+      document.addEventListener('click', function(e){ if(!e.target.closest('.search-bar')) list.style.display='none'; });
+    })();
+    
+    // Simple carousel logic
+    (function(){
+      var slides = document.getElementById('carouselSlides');
+      var dotsWrap = document.getElementById('carouselDots');
+      if(!slides||!dotsWrap) return;
+      var total = slides.children.length; var index = 0;
+      function go(i){ index = (i+total)%total; slides.style.transform = 'translateX(' + (-index*100) + '%)'; updateDots(); }
+      function updateDots(){ dotsWrap.innerHTML=''; for(var j=0;j<total;j++){ var d=document.createElement('div'); d.className='dot'+(j===index?' active':''); d.dataset.idx=j; d.onclick=function(){go(+this.dataset.idx)}; dotsWrap.appendChild(d);} }
+      document.getElementById('prevBtn').addEventListener('click',function(){ go(index-1); });
+      document.getElementById('nextBtn').addEventListener('click',function(){ go(index+1); });
+      updateDots();
+      var timer = setInterval(function(){ go(index+1); },4500);
+      [slides].forEach(function(el){ el.addEventListener('mouseenter',function(){ clearInterval(timer); }); el.addEventListener('mouseleave',function(){ timer=setInterval(function(){ go(index+1); },4500); }); });
+    })();
+  </script>
+</body>
+</html>

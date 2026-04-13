@@ -1,0 +1,367 @@
+<?php
+// session logic baad me
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teacher Dashboard | ADM Classes</title>
+
+<style>
+:root{
+  --primary:#007bff;
+  --bg:#f4f6f8;
+  --card:#ffffff;
+  --text:#222;
+  --muted:#666;
+  --border:#e0e0e0;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:'Segoe UI', Tahoma, sans-serif;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* ===== HEADER ===== */
+.header{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.header .title{
+  font-size:20px;
+  font-weight:700;
+  color:var(--primary);
+}
+
+.header .subtitle{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.header .teacher{
+  font-size:14px;
+  font-weight:600;
+}
+
+/* ===== LAYOUT ===== */
+.container{
+  display:flex;
+  min-height:calc(100vh - 70px);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  width:230px;
+  background:#fff;
+  border-right:1px solid var(--border);
+  padding:20px;
+}
+
+.sidebar h4{
+  font-size:14px;
+  margin-bottom:10px;
+  color:var(--muted);
+}
+
+.sidebar a{
+  display:block;
+  text-decoration:none;
+  padding:10px 12px;
+  border-radius:5px;
+  margin-bottom:6px;
+  color:#333;
+  font-size:14px;
+}
+
+.sidebar a.active,
+.sidebar a:hover{
+  background:#eaf3ff;
+  color:var(--primary);
+  font-weight:600;
+}
+
+/* ===== MAIN ===== */
+.main{
+  flex:1;
+  padding:30px;
+}
+
+/* ===== ACTION BAR ===== */
+.actions{
+  display:flex;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.actions a{
+  text-decoration:none;
+  padding:12px 18px;
+  background:var(--primary);
+  color:#fff;
+  border-radius:6px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.actions a.secondary{
+  background:#fff;
+  color:var(--primary);
+  border:1px solid var(--primary);
+}
+
+/* ===== CARD ===== */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:20px;
+}
+
+.card h3{
+  margin:0 0 15px;
+  font-size:16px;
+}
+
+/* ===== TABLE ===== */
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:12px;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+}
+
+th{
+  background:#f8f9fa;
+  text-align:left;
+}
+
+.status{
+  color:green;
+  font-weight:600;
+}
+
+.btn{
+  padding:6px 10px;
+  font-size:12px;
+  background:var(--primary);
+  color:#fff;
+  border-radius:4px;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="title">ADM Classes</div>
+    <div class="subtitle">Teacher Panel</div>
+  </div>
+  <div class="teacher">
+    Welcome, <strong>Shubham sir</strong> (Technical)
+  </div>
+</div>
+
+<div class="container"> 
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h4>Teacher Menu</h4>
+    <a class="active" href="#">Dashboard</a>
+    <a href="my-courses.html">My Courses</a>
+    <a href="add-content.html">Add Lecture</a>
+    <a href="#">Upload Notes</a>
+    <a href="student.html">Students</a>
+    <a href="setting.html">Setting</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <h2>View all courses details </h2>
+       
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+      <h3>My Batches</h3>
+      <table>
+        <tr>
+          <th>Batch Name</th>
+          <th>Class</th>
+          <th>Students</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+         <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+         <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+         <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+         <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+         <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+         <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+         <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+         <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+         <tr>
+          <td>JEE 2025</td>
+          <td>12th</td>
+          <td>48</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+        <tr>
+          <td>SSC Mathematics</td>
+          <td>10th</td>
+          <td>32</td>
+          <td class="status">Active</td>
+          <td><a class="btn" href="#">Open</a></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// future use
+console.log("ADM Teacher Dashboard Loaded");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | ADM Classes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="../../static/css/style.css">
+</head>
+<body>
+  <div class="blur-bg" id="blurBg"></div>
+
+  <div class="modal" id="loginModal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2>Login</h2>
+    <input type="email" placeholder="Email" />
+    <input type="password" placeholder="Password" />
+     <a href="#" onclick="alert('Login successful!');"><button>Login</button></a>
+    <div class="switch">Not registered? <a href="#" onclick="switchModal('register')">Register here</a></div>
+  </div>
+
+  <div class="modal" id="registerModal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2>Register</h2>
+    <input type="text" placeholder="Full Name" />
+    <input type="email" placeholder="Email" />
+    <input type="tel" placeholder="Mobile Number" />
+    <input type="password" placeholder="Password" />
+     <a href="#" onclick="alert('Registration successful!');"><button>Register</button></a>
+    <div class="switch">Already registered? <a href="#" onclick="switchModal('login')">Login here</a></div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-section">
+      <div class="logo-left">
+        <a href="../index.html"><img src="../../static/images/logo.png" alt="ADM Logo" /></a>
+        <div class="logo-text">ADM Classes</div>
+      </div>
+       <div class="nav-area">
+            <div class="nav-area1">
+              <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search courses, notes, teachers..." autocomplete="off" />
+                <button class="search-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+              </div>
+              <ul class="search-suggestions" id="searchSuggestions" aria-hidden="true"></ul>
+            </div>
+          </div>
+      <div class="auth-buttons">
+        <a onclick="openModal('login')">Login</a>
+        <a onclick="openModal('register')">Register</a>
+        <button class="toggle-btn" onclick="toggleMode()">🌙</button>
+      </div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      </div>
+    
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-links" id="navLinks">
+      <a href="../index.html">Home</a>
+      <a href="../courses/courses.html">Courses</a>
+      <a href="../notes/notes.html">Notes</a>
+      <a href="../videos/videos.html">Videos</a>
+      <a href="../quiz/quiz.html">Quiz</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="../about/about.html">About</a>
+    </div>
+  </nav>
+  <!-- MAIN -->
+  <section class="teachers-section">
+  <h2>Our Teachers</h2>
+  <div class="teachers-grid">
+    <a class="teacher-card" href="dipak sir contact.html" >
+      <img src="../../static/images/dipak.jpg" alt="Deepak Sir">
+      <h3>Deepak Sir</h3>
+      <p>Physics & Chemistry</p>
+    </a>
+    <a class="teacher-card" href="annu sir contact.html" >
+      <img src="../../static/images/annu.jpg" alt="Annu Sir">
+      <h3>Annu Sir</h3>
+      <p>Biology, Math & English</p>
+    </a>
+    <a class="teacher-card" href="manish sir contact.html" >
+      <img src="#" alt="Manish Sir">
+      <h3>Manish Sir</h3>
+      <p>Class 8 & 9 (All Subjects)</p>
+    </a>
+  </div>
+</section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <h4>About ADM</h4>
+      <ul>
+        <li><a href="../about/about.html">Our Mission</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="../courses/courses.html">Courses</a></li>
+        <li><a href="../notes/notes.html">Notes</a></li>
+        <li><a href="../videos/videos.html">Videos</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <ul>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">&copy; 2025 ADM Classes | Designed with ❤️ by Abhinav</div>
+  </footer>
+
+  <!-- JS -->
+ 
+ <script src="../../static/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>1st Sem CSE - ADM Classes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../../../static/css/navbar.css">
+  <link rel="stylesheet" href="../../../../static/css/semester.css">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f5f8ff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .courses-container {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .courses-container h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #003366;
+      font-weight: 600;
+    }
+
+    .offer-box {
+      background: #ffffff;
+      max-width: 380px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      padding: 25px;
+      transition: 0.3s ease;
+    }
+
+    .offer-box:hover {
+      transform: translateY(-6px);
+    }
+
+    .price-section {
+      margin-bottom: 20px;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 1rem;
+    }
+
+    .new-price {
+      font-size: 1.8rem;
+      color: #007bff;
+      font-weight: 700;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 25px 0;
+      text-align: left;
+    }
+
+    .feature-list li {
+      background: url('https://cdn-icons-png.flaticon.com/512/845/845646.png') no-repeat left center;
+      background-size: 20px;
+      padding-left: 32px;
+      margin: 12px 0;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .payment-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #0066ff, #00c6ff);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .payment-btn:hover {
+      opacity: 0.9;
+      transform: scale(1.03);
+    }
+
+    footer {
+      margin-top: 80px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-section">
+      <div class="logo-left">
+        <a href="../../../../index.html">
+          <img src="../../../../static/images/logo.png" alt="ADM Logo" height="50"/>
+        </a>
+        <div class="logo-text">ADM Classes</div>
+      </div>
+      <div class="auth-buttons">
+        <a href="#" onclick="openModal('login')">Login</a>
+        <a href="#" onclick="openModal('register')">Register</a>
+        <button class="toggle-btn" onclick="toggleMode()">🌙</button>
+      </div>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../courses/courses.html" class="active">Courses</a>
+      <a href="../../../../notes/notes.html">Notes</a>
+      <a href="../../../../videos/videos.html">Videos</a>
+      <a href="../../../../quiz/quiz.html">Quiz</a>
+      <a href="../../../../contact/contact.html">Contact</a>
+      <a href="../../../../about/about.html">About</a>
+    </div>
+  </nav>
+
+  <section class="courses-container">
+    <h1>1st Semester - CSE Branch</h1>
+    <div class="offer-box">
+      <div class="price-section">
+        <span class="old-price">₹3600</span> &nbsp;
+        <span class="new-price">₹1500</span>
+      </div>
+      <h3>Complete Polytechnic 1st Sem CSE Course</h3>
+      <ul class="feature-list">
+        <li>Live Online Classes</li>
+        <li>Detailed Notes Provided</li>
+        <li>Doubt Clearing Sessions</li>
+        <li>Experienced Faculty</li>
+        <li>Works on Mobile & Laptop</li>
+        <li>Regular Scheduled Classes</li>
+        <li>Direct Interaction with Teachers</li>
+      </ul>
+      <a href="#" class="payment-btn" onclick="alert('Redirecting to payment gateway...')">Proceed to Pay</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom">
+      &copy; 2025 ADM Classes | Designed with ❤️ by Abhinav
+    </div>
+  </footer>
+
+<script src="../../../../static/js/script.js"></script>
+</body>
+</html>
+  
