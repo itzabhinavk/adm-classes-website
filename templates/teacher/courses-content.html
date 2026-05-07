@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Courses | ADM Classes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <style>
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      margin:0; 
+      background:#eef2ff; 
+      color:#111827; 
+    }
+    .page-shell { 
+      max-width: 1180px; 
+      margin: 0 auto; 
+      padding: 24px 20px; 
+    }
+    .top-bar { 
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center; 
+      flex-wrap:wrap; 
+      gap:16px; 
+      margin-bottom:20px; 
+    }
+    .top-bar h1 { 
+      margin:0; 
+      font-size:30px; 
+    }
+    .top-bar .subtitle { 
+      color:#4b5563; 
+    }
+    .nav-links { 
+      display:flex; 
+      flex-wrap:wrap; 
+      gap:12px; 
+      margin-bottom:24px; 
+    }
+    .nav-links a { 
+      text-decoration:none; 
+      color:#475569; 
+      background:#fff; 
+      border:1px solid #dbeafe; 
+      padding:10px 16px; 
+      border-radius:999px; 
+      transition: all .2s ease; 
+    }
+    .nav-links a.active, .nav-links a:hover { 
+      color:#1d4ed8; 
+      background:#eff6ff; 
+      border-color:#bfdbfe; 
+    }
+    .course-list { 
+      display:grid; 
+      gap:18px; 
+    }
+    .course-card { 
+      background:#fff; 
+      border:1px solid #dbeafe; 
+      border-radius:20px; 
+      padding:22px; 
+      box-shadow:0 15px 30px rgba(15,23,42,0.05); 
+    }
+    .course-card h3 { 
+      margin:0 0 10px; 
+      font-size:20px; 
+    }
+    .course-card p { 
+      margin:0 0 14px; 
+      color:#475569; 
+      line-height:1.7; 
+    }
+    .course-meta { 
+      display:flex; 
+      flex-wrap:wrap; 
+      gap:10px; 
+      color:#475569; 
+      font-size:13px; 
+    }
+    .course-meta span { 
+      background:#eff6ff; 
+      padding:8px 12px; 
+      border-radius:999px; 
+    }
+    .status-pill { 
+      background:#d1fae5; 
+      color:#065f46; 
+      padding:6px 10px; 
+      border-radius:999px; 
+      font-size:13px; 
+    }
+    .empty-state { 
+      background:#fff; 
+      border:1px dashed #cbd5e1; 
+      border-radius:18px; 
+      padding:28px; 
+      text-align:center; 
+      color:#64748b; 
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="top-bar">
+      <div>
+        <h1>My Courses</h1>
+        <p class="subtitle">Your assigned batches and course content at a glance.</p>
+      </div>
+      <div>{{ user_name }}</div>
+    </div>
+    <div class="nav-links">
+      <a href="{{ url_for('teacher.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('teacher.courses') }}" class="active">My Courses</a>
+      <a href="{{ url_for('teacher.add_content') }}">Create Class</a>
+      <a href="{{ url_for('teacher.students') }}">Students</a>
+      <a href="{{ url_for('teacher.profile') }}">Profile</a>
+      <a href="{{ url_for('auth.logout') }}" style="color: #e74c3c;">Logout</a>
+    </div>
+    {% if courses %}
+      <div class="course-list">
+        {% for course in courses %}
+          <div class="course-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+              <div>
+                <h3>{{ course.title }}</h3>
+                <p>{{ course.description }}</p>
+              </div>
+              <span class="status-pill">Assigned</span>
+            </div>
+            <div class="course-meta">
+              <span>{{ course.category }}</span>
+              <span>{{ course.level or 'N/A' }}</span>
+              <span>₹{{ '%.2f'|format(course.price) }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">No assigned courses found. Create a class to get started.</div>
+    {% endif %}
+  </div>
+</body>
+</html>
+    {% endif %}
+  </div>
+</body>
+</html>

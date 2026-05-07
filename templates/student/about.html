@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin: 0; background: var(--page-bg); }
+    .page-shell { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    .page-header { text-align: center; margin-bottom: 40px; }
+    .page-header h1 { margin: 0 0 12px; color: var(--text); font-size: 36px; }
+    .about-section { background: var(--panel-bg); border-radius: 16px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .about-section h2 { color: var(--text)  ; margin: 30px 0 16px; }
+    .about-section h2:first-child { margin-top: 0; }
+    .about-section p { color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .about-section ul { color: var(--muted); line-height: 1.8; padding-left: 20px; }
+    .about-section li { margin-bottom: 8px; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+    .feature { background: var(--card-bg); padding: 24px; border-radius: 12px; text-align: center; }
+    .feature i { font-size: 36px; color: var(--primary); margin-bottom: 12px; }
+    .feature h3 { margin: 0 0 8px; color: var(--text); }
+    .feature p { margin: 0; color: var(--muted); font-size: 14px; }
+  </style>
+
+  
+  <div class="page-shell">
+    <div class="page-header">
+      <h1>About ADM Classes</h1>
+      <p>Building strong foundations for future success</p>
+    </div>
+
+    <div class="about-section">
+      <p>At ADM Classes, we believe in building a strong foundation for students in both academic and competitive domains. Founded with a vision to revolutionize local education, our institution combines traditional values with modern techniques to offer the best learning experience.</p>
+      
+      <p>We offer subject-wise teaching for classes 8 to 12 across Science and Arts streams. Our dedicated team of experienced educators specialize in Physics, Chemistry, Biology, Math, English, and more.</p>
+      
+      <p>We also provide expert guidance for entrance exams like Polytechnic, Paramedical, ITICAT, and B.Tech Entrance. With structured content, quality resources, and continuous motivation — we strive to help every student succeed in their academic journey.</p>
+
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-graduation-cap"></i>
+          <h3>Expert Teachers</h3>
+          <p>Learn from experienced educators</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-book"></i>
+          <h3>Quality Content</h3>
+          <p>Structured study material</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-video"></i>
+          <h3>Video Lectures</h3>
+          <p>Learn at your own pace</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-check-circle"></i>
+          <h3>Quiz & Tests</h3>
+          <p>Track your progress</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pending Teachers | ADM Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin:0; background:#f8fafc; color:#334155; }
+    .page-shell { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+    .header h1 { margin:0; font-size:28px; }
+    .nav-links { display:flex; gap:16px; margin-bottom:24px; }
+    .nav-links a { text-decoration:none; color:#64748b; padding:8px 16px; border-radius:6px; transition:all .2s; }
+    .nav-links a.active { background:#3b82f6; color:#fff; }
+    .nav-links a:hover { background:#e2e8f0; }
+    .table-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.05); }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:16px; text-align:left; border-bottom:1px solid #f1f5f9; }
+    th { background:#f8fafc; font-weight:600; color:#475569; }
+    tr:hover { background:#f8fafc; }
+    .status-badge { padding:6px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+    .status-pending { background:#fef3c7; color:#d97706; }
+    .btn { padding:8px 16px; border-radius:6px; text-decoration:none; font-size:14px; font-weight:500; border:none; cursor:pointer; transition:all .2s; }
+    .btn-approve { background:#10b981; color:#fff; }
+    .btn-approve:hover { background:#059669; }
+    .btn-reject { background:#ef4444; color:#fff; }
+    .btn-reject:hover { background:#dc2626; }
+    .empty-state { background:#fff; border:1px dashed #cbd5e1; border-radius:12px; padding:48px; text-align:center; color:#64748b; }
+    .subjects-list { display:flex; flex-wrap:wrap; gap:6px; }
+    .subject-tag { background:#e0f2fe; color:#0369a1; padding:4px 8px; border-radius:12px; font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="header">
+      <div>
+        <h1>Pending Teacher Applications</h1>
+        <p>Review and approve teacher registration requests</p>
+      </div>
+      <div>{{ user_name }}</div>
+    </div>
+
+    <div class="nav-links">
+      <a href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('admin.pending_teachers') }}" class="active">Pending Teachers</a>
+      <a href="{{ url_for('admin.teachers') }}">Teachers</a>
+      <a href="{{ url_for('admin.students') }}">Students</a>
+      <a href="{{ url_for('admin.courses') }}">Courses</a>
+    </div>
+
+    {% if pending_teachers %}
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Requested Subjects</th>
+              <th>Applied On</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for teacher in pending_teachers %}
+              <tr>
+                <td>{{ teacher.name }}</td>
+                <td>{{ teacher.email }}</td>
+                <td>{{ teacher.phone or 'N/A' }}</td>
+                <td>
+                  <div class="subjects-list">
+                    {% for subject in teacher.requested_subjects.split(',') %}
+                      <span class="subject-tag">{{ subject.strip() }}</span>
+                    {% endfor %}
+                  </div>
+                </td>
+                <td>{{ teacher.created_at.strftime('%d %b %Y') }}</td>
+                <td>
+                  <a href="{{ url_for('admin.approve_teacher', pending_id=teacher.id) }}" class="btn btn-approve">Approve</a>
+                  <form method="POST" action="{{ url_for('admin.reject_teacher', pending_id=teacher.id) }}" style="display:inline;">
+                    <button type="submit" class="btn btn-reject" onclick="return confirm('Are you sure you want to reject this application?')">Reject</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <h3>No pending applications</h3>
+        <p>All teacher applications have been processed.</p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

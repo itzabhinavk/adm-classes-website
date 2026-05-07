@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Notes | ADM Classes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin:0; background:#eef2ff; color:#111827; }
+    .page-shell { max-width: 800px; margin: 0 auto; padding: 24px 20px; }
+    .top-bar { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:18px; margin-bottom:20px; }
+    .top-bar h1 { margin:0; font-size:30px; }
+    .top-bar .subtitle { color:#475569; margin-top:6px; }
+    .nav-links { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:24px; }
+    .nav-links a { text-decoration:none; color:#475569; background:#fff; border:1px solid #dbeafe; padding:10px 16px; border-radius:999px; transition:all .2s ease; }
+    .nav-links a.active, .nav-links a:hover { color:#1d4ed8; background:#eff6ff; border-color:#bfdbfe; }
+    .form-card { background:#fff; border:1px solid #dbeafe; border-radius:20px; padding:32px; box-shadow:0 15px 30px rgba(15,23,42,0.05); }
+    .lecture-info { background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin-bottom:24px; }
+    .lecture-info h3 { margin:0 0 12px; color:#1e293b; }
+    .info-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; }
+    .info-item { display:flex; justify-content:space-between; }
+    .info-item strong { color:#475569; }
+    .upload-section { margin-bottom:24px; }
+    .upload-section h3 { margin:0 0 16px; color:#1e293b; }
+    .file-upload { border:2px dashed #cbd5e1; border-radius:12px; padding:40px; text-align:center; transition:all .2s ease; }
+    .file-upload:hover { border-color:#93c5fd; background:#f8fafc; }
+    .file-upload input { display:none; }
+    .upload-btn { background:#1d4ed8; color:#fff; border:none; padding:12px 24px; border-radius:8px; cursor:pointer; font-size:16px; font-weight:600; }
+    .upload-btn:hover { background:#1e40af; }
+    .btn-group { display:flex; gap:12px; margin-top:24px; }
+    .btn { padding:12px 24px; border-radius:8px; text-decoration:none; font-size:14px; font-weight:500; border:none; cursor:pointer; transition:all .2s; flex:1; text-align:center; }
+    .btn-primary { background:#10b981; color:#fff; }
+    .btn-primary:hover { background:#059669; }
+    .btn-secondary { background:#6b7280; color:#fff; }
+    .btn-secondary:hover { background:#4b5563; }
+    .file-info { margin-top:16px; color:#64748b; font-size:14px; }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="top-bar">
+      <div>
+        <h1>Upload Notes</h1>
+        <p class="subtitle">Add study materials for your lecture</p>
+      </div>
+      <div>{{ user_name }}</div>
+    </div>
+
+    <div class="nav-links">
+      <a href="{{ url_for('teacher.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('teacher.my_lectures') }}">My Lectures</a>
+      <a href="{{ url_for('teacher.add_content') }}">Create Class</a>
+      <a href="{{ url_for('teacher.students') }}">Students</a>
+      <a href="{{ url_for('teacher.profile') }}">Profile</a>
+    </div>
+
+    <div class="form-card">
+      <div class="lecture-info">
+        <h3>Lecture Details</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Title:</strong>
+            <span>{{ lecture.title }}</span>
+          </div>
+          <div class="info-item">
+            <strong>Subject:</strong>
+            <span>{{ lecture.subject_name }}</span>
+          </div>
+          <div class="info-item">
+            <strong>Type:</strong>
+            <span>{{ lecture.class_mode|title }}</span>
+          </div>
+          <div class="info-item">
+            <strong>Created:</strong>
+            <span>{{ lecture.created_at.strftime('%d %b %Y') }}</span>
+          </div>
+        </div>
+      </div>
+
+      <form method="POST" enctype="multipart/form-data">
+        <div class="upload-section">
+          <h3>Upload Notes File</h3>
+          <p>Upload PDF, DOC, or other study materials for this lecture.</p>
+
+          <div class="file-upload">
+            <input type="file" id="notes_file" name="notes_file" accept=".pdf,.doc,.docx,.ppt,.pptx,.txt" required>
+            <label for="notes_file">
+              <div>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14,2 14,8 20,8"></polyline>
+                </svg>
+                <p style="margin:16px 0 8px; font-weight:600;">Click to upload notes</p>
+                <p style="margin:0; color:#64748b; font-size:14px;">PDF, DOC, PPT files up to 10MB</p>
+              </div>
+            </label>
+          </div>
+
+          <div class="file-info" id="fileInfo">
+            No file selected
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">Upload Notes</button>
+          <a href="{{ url_for('teacher.my_lectures') }}" class="btn btn-secondary">Skip for Now</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('notes_file').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      const fileInfo = document.getElementById('fileInfo');
+
+      if (file) {
+        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        fileInfo.innerHTML = `<strong>${file.name}</strong> (${sizeMB} MB)`;
+        fileInfo.style.color = '#059669';
+      } else {
+        fileInfo.innerHTML = 'No file selected';
+        fileInfo.style.color = '#64748b';
+      }
+    });
+  </script>
+</body>
+</html>

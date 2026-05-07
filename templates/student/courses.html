@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <style>
+
+  </style>
+
+  <section class="courses-container">
+    <h1>Courses Offered</h1>
+    <div class="course-grid">
+      {% if courses %}
+        {% for course in courses %}
+          <div class="course-card searchable-card" data-search="{{ course.title|lower }} {{ course.description|lower }} {{ course.category|lower }} {{ course.level|lower }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Course Logo">
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.description }}</p>
+            <p><strong>Price:</strong> ₹{{ '%.2f'|format(course.price) }}</p>
+            {% if course.id in enrolled_ids %}
+              <button class="btn" disabled>Already Enrolled</button>
+            {% else %}
+              {% set request_status = namespace(value='none') %}
+              {% for enrolled in enrolled_courses %}
+                {% if enrolled.course_id == course.id %}
+                  {% set request_status.value = enrolled.status %}
+                {% endif %}
+              {% endfor %}
+
+              {% if request_status.value == 'pending' %}
+                <button class="btn" disabled style="background: #f59e0b;">Request Pending</button>
+              {% elif request_status.value == 'approved' %}
+                <button class="btn" disabled style="background: #10b981;">Approved</button>
+              {% elif request_status.value == 'rejected' %}
+                <form method="POST" action="{{ url_for('student.request_course', course_id=course.id) }}">
+                  <button type="submit" class="btn" style="background: #ef4444;">Request Again</button>
+                </form>
+              {% else %}
+                <form method="POST" action="{{ url_for('student.request_course', course_id=course.id) }}">
+                  <button type="submit" class="btn">Request Enrollment</button>
+                </form>
+              {% endif %}
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No courses are available yet. Please check back later.</p>
+      {% endif %}
+    </div>
+  </section>
+
+ 
+ {% endblock %}

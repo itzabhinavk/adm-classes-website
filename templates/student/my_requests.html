@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <style>
+   
+    .requests-container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    .requests-container h1 { text-align: center; margin-bottom: 30px; color: var(--text); }
+    .requests-grid { display: grid; gap: 20px; }
+    .request-card { background: var(--panel-bg); border: 1px solid #e5e7eb;box-shadow: 0 1px 3px rgba(22, 75, 209, 0.699); border-radius: 12px; padding: 20px; }
+    .request-header { display: flex; justify-content: space-between; color: var(--card-text); align-items: flex-start; margin-bottom: 15px; }
+    .request-title { font-size: 18px; font-weight: 600; color: var(--text); margin: 0; }
+    .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; text-transform: uppercase; }
+    .status-pending { background: #fef3c7; color: #d97706; }
+    .status-approved { background: #d1fae5; color: #065f46; }
+    .status-rejected { background: #fee2e2; color: #dc2626; }
+    .request-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 15px; font-size: 14px; color: var(--muted); }
+    .request-meta div { display: flex; align-items: center; gap: 5px; }
+    .request-actions { display: flex; gap: 10px; }
+    .btn { padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; border: none; cursor: pointer; transition: all 0.2s; }
+    .btn-primary { background: #2563eb; color: white; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary { background: #6b7280; color: white; }
+    .btn-secondary:hover { background: #4b5563; }
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .empty-state h3 { margin: 0 0 12px; color: var(--text); }
+    .empty-state p { margin: 0 0 24px; }
+    .empty-state .btn { display: inline-block; margin-top: 16px; }
+  </style>
+
+
+  <section class="requests-container">
+    <h1 class="text">My Course Requests</h1>
+
+    {% if requests %}
+    <div class="requests-grid">
+      {% for request in requests %}
+      <div class="request-card searchable-card" data-search="{{ request.title|lower }} {{ request.category|lower }} {{ request.level|lower }} {{ request.status|lower }} {{ request.price }}">
+        <div class="request-header">
+          <h3 class="request-title">{{ request.title }}</h3>
+          <span class="status-badge status-{{ request.status }}">
+            {{ request.status|title }}
+          </span>
+        </div>
+
+        <div class="request-meta">
+          <div><i class="fas fa-tag"></i> {{ request.category }}</div>
+          <div><i class="fas fa-graduation-cap"></i> {{ request.level }}</div>
+          <div><i class="fas fa-calendar"></i> {{ request.purchased_at.strftime('%d %b %Y') }}</div>
+          <div><i class="fas fa-rupee-sign"></i> {{ request.price }}</div>
+        </div>
+
+        {% if request.status == 'pending' %}
+        <div class="request-actions">
+          <span style="color: #d97706; font-size: 14px;"><i class="fas fa-clock"></i> Waiting for admin approval</span>
+        </div>
+        {% elif request.status == 'approved' %}
+        <div class="request-actions">
+          <span style="color: #065f46; font-size: 14px;"><i class="fas fa-check-circle"></i> You can now access this course</span>
+          <a href="{{ url_for('student.courses') }}" class="btn btn-primary">View Course</a>
+        </div>
+        {% elif request.status == 'rejected' %}
+        <div class="request-actions">
+          <span style="color: #dc2626; font-size: 14px;"><i class="fas fa-times-circle"></i> Request was rejected</span>
+          <a href="{{ url_for('student.courses') }}" class="btn btn-secondary">Request Again</a>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <h3>No requests yet</h3>
+      <p>You haven't requested any courses yet. Browse available courses and submit your requests.</p>
+      <a href="{{ url_for('student.courses') }}" class="btn btn-primary">Browse Courses</a>
+    </div>
+    {% endif %}
+  </section>
+
+ 
+{% endblock %}

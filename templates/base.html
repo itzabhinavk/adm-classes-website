@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ADM Classes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+   <style>
+    .user-greeting { position: relative;  display: inline-block;   }
+    .user-name-btn { background: #5c6475; color: white; border: none; border-radius: 999px; 
+        padding: 8px 14px;  cursor: pointer; font-size: 0.95rem;  margin-right: 30px; }
+    .user-menu-dropdown { display: none; position: absolute; right: 0; margin-right: 30px; top: calc(100% + 8px); 
+        background: #ffe4e4; border: 1px solid #ff0606; border-radius: 20px; 
+           box-shadow: 0 10px 25px rgba(16, 26, 48, 0.12);  min-width: 80px;  z-index: 50;  }
+    .user-menu-dropdown a { display: block;  padding: 10px 14px; text-decoration: none; }
+    
+    .user-greeting.show-menu .user-menu-dropdown {  display: block; }
+    .login-btn { display: inline-block; background: #2563eb; color: rgb(224, 49, 49); 
+        padding: 8px 14px; border-radius: 999px; text-decoration: none; font-size: 0.95rem;  }
+    .search-empty { display: none; padding: 24px; text-align: center; color: #64748b; background: #f8fafc;
+      border-radius: 18px; border: 1px dashed #d1d5db; margin-top: 20px; font-size: 15px; }
+   </style>
+
+</head>
+
+<body>
+    <div class="blur-bg" id="blurBg"></div>
+
+<!-- HEADER -->
+<header>
+        <div class="logo-section">
+          <div class="logo-left" >
+            <a href="{{ url_for('student.dashboard') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="ADM Logo"/></a>
+            <div class="logo-text">ADM Classes</div>
+          </div>
+
+          <div class="nav-area">
+            <div class="nav-area1">
+              <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search courses, notes, teachers..." autocomplete="off" />
+                <button class="search-btn" type="button" onclick="toggleSearchBar(event)" aria-label="Search"><i class="fas fa-search"></i></button>
+              </div>
+              <ul class="search-suggestions" id="searchSuggestions" aria-hidden="true"></ul>
+            </div>
+          </div>
+
+          <div class="auth-buttons">
+            {% if user_name %}
+              <div class="user-greeting">
+                <button class="user-name-btn user-full-btn" onclick="toggleUserMenu(this)">Welcome, {{ user_name }}</button>
+                <button class="user-icon-btn user-icon-only" onclick="toggleUserMenu(this)" aria-label="Open user menu">{{ user_name[0]|upper if user_name else 'U' }}</button>
+                <div id="userMenu" class="user-menu-dropdown">
+                  <div class="user-dropdown-name">{{ user_name }}</div>
+                  <a href="{{ url_for('auth.logout') }}">Logout</a>
+                </div>
+              </div>
+            {% else %}
+              <a class="login-btn" href="{{ url_for('auth.login') }}">Login</a>
+            {% endif %}
+            <button class="toggle-btn" onclick="toggleMode()">🌙</button>
+          </div>
+          <button class="menu-toggle" onclick="toggleMenu()">⋮</button>
+        </div>
+      </header>
+
+<!-- NAVBAR -->
+<nav>
+  <div id="navLinks" class="nav-links">
+
+    <a href="{{ url_for('student.dashboard') }}"
+    class="{% if request.endpoint=='student.dashboard' %}active{% endif %}">Home</a>
+
+    <a href="{{ url_for('student.courses') }}"
+    class="{% if request.endpoint=='student.courses' %}active{% endif %}">Courses</a>
+
+    <a href="{{ url_for('student.my_courses') }}"
+    class="{% if request.endpoint=='student.my_courses' %}active{% endif %}">My Courses</a>
+
+    <a href="{{ url_for('student.my_requests') }}"
+    class="{% if request.endpoint=='student.my_requests' %}active{% endif %}">My Requests</a>
+
+    <a href="{{ url_for('student.notes') }}"
+    class="{% if request.endpoint=='student.notes' %}active{% endif %}">Notes</a>
+
+    <a href="{{ url_for('student.videos') }}"
+    class="{% if request.endpoint=='student.videos' %}active{% endif %}">Videos</a>
+
+    <a href="{{ url_for('student.quiz') }}"
+    class="{% if request.endpoint=='student.quiz' %}active{% endif %}">Quiz</a>
+
+    <a href="{{ url_for('student.contact') }}"
+    class="{% if request.endpoint=='student.contact' %}active{% endif %}">Contact</a>
+
+    <a href="{{ url_for('student.about') }}"
+    class="{% if request.endpoint=='student.about' %}active{% endif %}">About</a>
+
+  </div>
+</nav>
+
+
+<!-- MAIN CONTENT -->
+<div>
+  {% block content %}{% endblock %}
+</div>
+
+<!-- FOOTER -->
+ <footer>
+    <div>
+      <h4>About ADM</h4>
+      <ul>
+        <li><a href="about.html">Our Mission</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="videos.html">Videos</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <ul>
+        <li><a href="../contact/contact.html">Contact</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 ADM Classes | Designed with ❤️ by Abhinav
+    </div>
+  </footer>
+   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+    function toggleUserMenu(button) {
+      var wrapper = button.closest('.user-greeting');
+      wrapper.classList.toggle('show-menu');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.user-greeting')) {
+        var wrapper = document.querySelector('.user-greeting.show-menu');
+        if (wrapper) wrapper.classList.remove('show-menu');
+      }
+    });
+    // Notice close
+    function closeNotice(){
+      var n = document.getElementById('noticeBar'); if(n) n.style.display='none';
+    }
+
+    // Show notice bar and hero animation after load
+    document.addEventListener('DOMContentLoaded', function(){
+      var nb = document.getElementById('noticeBar'); if(nb) setTimeout(function(){ nb.classList.add('show'); }, 220);
+      var hero = document.querySelector('.hero'); if(hero) hero.classList.add('show');
+    });
+
+    // Global student panel search logic
+    (function(){
+      var input = document.getElementById('searchInput');
+      var button = document.querySelector('.search-btn');
+      if(!input) return;
+
+      function updateSearch() {
+        var query = input.value.trim().toLowerCase();
+        var cards = Array.from(document.querySelectorAll('.searchable-card'));
+        if(cards.length === 0) return;
+
+        cards.forEach(function(card) {
+          var haystack = (card.dataset.search || card.innerText || '').toLowerCase();
+          var match = query === '' || haystack.indexOf(query) !== -1;
+          card.style.display = match ? '' : 'none';
+        });
+
+        var containers = Array.from(new Set(cards.map(function(card) {
+          return card.closest('.course-grid, .notes-grid, .videos-grid, .quiz-grid, .requests-grid, .teachers-grid, .searchable-list');
+        }).filter(Boolean)));
+
+        containers.forEach(function(container) {
+          var empty = container.querySelector('.search-empty');
+          if(!empty) {
+            empty = document.createElement('div');
+            empty.className = 'search-empty';
+            empty.textContent = 'No results matched your search.';
+            empty.style.display = 'none';
+            container.appendChild(empty);
+          }
+
+          var visible = Array.from(container.querySelectorAll('.searchable-card')).some(function(card){
+            return card.style.display !== 'none';
+          });
+
+          empty.style.display = visible ? 'none' : 'block';
+        });
+      }
+
+      input.addEventListener('input', updateSearch);
+      if(button) button.addEventListener('click', function(event){
+        event.preventDefault();
+        updateSearch();
+        input.focus();
+      });
+    })();
+    
+    // Simple carousel logic
+    (function(){
+      var slides = document.getElementById('carouselSlides');
+      var dotsWrap = document.getElementById('carouselDots');
+      if(!slides||!dotsWrap) return;
+      var total = slides.children.length; var index = 0;
+      function go(i){ index = (i+total)%total; slides.style.transform = 'translateX(' + (-index*100) + '%)'; updateDots(); }
+      function updateDots(){ dotsWrap.innerHTML=''; for(var j=0;j<total;j++){ var d=document.createElement('div'); d.className='dot'+(j===index?' active':''); d.dataset.idx=j; d.onclick=function(){go(+this.dataset.idx)}; dotsWrap.appendChild(d);} }
+      document.getElementById('prevBtn').addEventListener('click',function(){ go(index-1); });
+      document.getElementById('nextBtn').addEventListener('click',function(){ go(index+1); });
+      updateDots();
+      var timer = setInterval(function(){ go(index+1); },4500);
+      [slides].forEach(function(el){ el.addEventListener('mouseenter',function(){ clearInterval(timer); }); el.addEventListener('mouseleave',function(){ timer=setInterval(function(){ go(index+1); },4500); }); });
+    })();
+  </script>
+</body>
+</html>

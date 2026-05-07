@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+  </style>
+
+  
+  <!-- Poster / Promotional banner (moved below hero as carousel) -->
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Welcome to ADM Classes</h1>
+      <p>A Great Place to Learn for 8th to 12th & Competitive Exams</p>
+      <a href="{{ url_for('student.courses') }}"><button class="btn">Explore Courses</button></a>
+    </div>
+  </section>
+
+  <!-- Carousel / Poster Slider -->
+  <section class="carousel" aria-label="Promotional slides">
+    <div class="slides" id="carouselSlides">
+      <div class="slide"><img src="{{ url_for('static', filename='images/slide1.jpg') }}" alt="Slide 1"></div>
+      <div class="slide"><img src="{{ url_for('static', filename='images/slide2.jpg') }}" alt="Slide 2"></div>
+      <div class="slide"><img src="{{ url_for('static', filename='images/slide3.jpg') }}" alt="Slide 3"></div>
+    </div>
+    <button class="prev" id="prevBtn" aria-label="Previous">&#10094;</button>
+    <button class="next" id="nextBtn" aria-label="Next">&#10095;</button>
+    <div class="dots" id="carouselDots"></div>
+  </section>
+
+
+
+  <!-- Quick Links (useful homepage shortcuts) -->
+  <section class="quick-links">
+    <div class="q-card">
+      <h4>Popular Courses</h4>
+      <p>Physics, Chemistry, Math crash courses</p>
+    </div>
+    <div class="q-card">
+      <h4>Upcoming Exams</h4>
+      <p>Exam schedule & tips</p>
+    </div>
+    <div class="q-card">
+      <h4>Latest Notes</h4>
+      <p>Download concise topic-wise notes</p>
+    </div>
+    <div class="q-card">
+      <h4>Tutorials</h4>
+      <p>Step-by-step video tutorials</p>
+    </div>
+  </section>
+
+  <!-- Recommended courses from backend -->
+  <section class="courses-container">
+    <h2>Recommended Courses</h2>
+    <div class="course-grid">
+      {% if courses %}
+        {% for course in courses %}
+          <div class="course-card searchable-card" data-search="{{ course.title|lower }} {{ course.description|lower }} {{ course.category|lower }} {{ course.level|lower }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Course Logo">
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.description }}</p>
+            <a href="{{ url_for('student.courses') }}">View Courses</a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No courses available at the moment. Please check back later.</p>
+      {% endif %}
+    </div>
+  </section>
+
+ 
+
+{% endblock %}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile | ADM Teacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin: 0; background: #f8fafc; }
+    .page-shell { max-width: 800px; margin: 0 auto; padding: 24px 20px; }
+    .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    .page-header h1 { margin: 0; color: #1e293b; }
+    .profile-card { background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .profile-header { text-align: center; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid #e2e8f0; }
+    .profile-avatar { width: 100px; height: 100px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+    .profile-avatar i { font-size: 40px; color: #fff; }
+    .profile-header h2 { margin: 0 0 4px; color: #1e293b; }
+    .profile-header .role { color: #10b981; font-size: 14px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; color: #374151; font-weight: 600; }
+    .form-group input { width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; box-sizing: border-box; }
+    .form-group input:focus { outline: none; border-color: #3b82f6; }
+    .btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; border: none; cursor: pointer; transition: all .2s; }
+    .btn-primary { background: #3b82f6; color: #fff; }
+    .btn-primary:hover { background: #2563eb; }
+    .info-row { display: flex; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { width: 120px; color: #64748b; font-weight: 500; }
+    .info-value { color: #1e293b; }
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div style="max-width: 800px; margin: 20px auto; padding: 0 20px;">
+        {% for category, message in messages %}
+          <div style="padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; {% if category == 'error' %}background: #fee2e2; color: #991b1b;{% else %}background: #d1fae5; color: #065f46;{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <div class="page-shell">
+    <div class="page-header">
+      <h1>My Profile</h1>
+      <a href="{{ url_for('teacher.dashboard') }}" style="color: #3b82f6; text-decoration: none;">← Back to Dashboard</a>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <h2>{{ teacher.name if teacher else user_name }}</h2>
+        <div class="role">Teacher</div>
+      </div>
+
+      <form method="POST" action="{{ url_for('teacher.update_profile') }}">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" value="{{ teacher.name if teacher else '' }}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" value="{{ teacher.email if teacher else '' }}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" value="{{ teacher.phone if teacher else '' }}">
+        </div>
+
+        <div class="form-group">
+          <label for="specialization">Specialization</label>
+          <input type="text" id="specialization" name="specialization" value="{{ teacher.specialization if teacher else '' }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Approve Teacher | ADM Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin:0; background:#f8fafc; color:#334155; }
+    .page-shell { max-width: 800px; margin: 0 auto; padding: 24px; }
+    .header { margin-bottom:24px; }
+    .header h1 { margin:0 0 8px; font-size:28px; }
+    .header .subtitle { color:#64748b; }
+    .nav-links { display:flex; gap:16px; margin-bottom:24px; }
+    .nav-links a { text-decoration:none; color:#64748b; padding:8px 16px; border-radius:6px; transition:all .2s; }
+    .nav-links a:hover { background:#e2e8f0; }
+    .form-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:32px; box-shadow:0 4px 6px rgba(0,0,0,0.05); }
+    .teacher-info { background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:20px; margin-bottom:24px; }
+    .teacher-info h3 { margin:0 0 12px; color:#1e293b; }
+    .info-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; }
+    .info-item { display:flex; justify-content:space-between; }
+    .info-item strong { color:#475569; }
+    .subjects-section { margin-bottom:24px; }
+    .subjects-section h3 { margin:0 0 16px; color:#1e293b; }
+    .subjects-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
+    .subject-checkbox { display:flex; align-items:center; gap:8px; }
+    .subject-checkbox input { width:auto; }
+    .subject-checkbox label { margin:0; font-size:14px; }
+    .requested-subjects { background:#fef3c7; border:1px solid #f59e0b; border-radius:6px; padding:12px; margin-bottom:16px; }
+    .requested-subjects strong { color:#92400e; }
+    .subjects-list { display:flex; flex-wrap:wrap; gap:6px; }
+    .subject-tag { background:#fed7aa; color:#9a3412; padding:4px 8px; border-radius:12px; font-size:12px; }
+    .btn-group { display:flex; gap:12px; margin-top:24px; }
+    .btn { padding:12px 24px; border-radius:6px; text-decoration:none; font-size:14px; font-weight:500; border:none; cursor:pointer; transition:all .2s; }
+    .btn-primary { background:#10b981; color:#fff; }
+    .btn-primary:hover { background:#059669; }
+    .btn-secondary { background:#6b7280; color:#fff; }
+    .btn-secondary:hover { background:#4b5563; }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="header">
+      <h1>Approve Teacher Application</h1>
+      <p class="subtitle">Review teacher details and assign subjects</p>
+    </div>
+
+    <div class="nav-links">
+      <a href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('admin.pending_teachers') }}">Pending Teachers</a>
+      <a href="{{ url_for('admin.teachers') }}">Teachers</a>
+    </div>
+
+    <div class="form-card">
+      <div class="teacher-info">
+        <h3>Teacher Information</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Name:</strong>
+            <span>{{ pending_teacher.name }}</span>
+          </div>
+          <div class="info-item">
+            <strong>Email:</strong>
+            <span>{{ pending_teacher.email }}</span>
+          </div>
+          <div class="info-item">
+            <strong>Phone:</strong>
+            <span>{{ pending_teacher.phone or 'Not provided' }}</span>
+          </div>
+          <div class="info-item">
+            <strong>Applied On:</strong>
+            <span>{{ pending_teacher.created_at.strftime('%d %b %Y') }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="requested-subjects">
+        <strong>Requested Subjects:</strong>
+        <div class="subjects-list">
+          {% for subject in requested_subjects %}
+            <span class="subject-tag">{{ subject }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <form method="POST">
+        <div class="subjects-section">
+          <h3>Assign Subjects *</h3>
+          <p>Select the subjects this teacher will be allowed to teach:</p>
+
+          <div class="subjects-grid">
+            <div class="subject-checkbox">
+              <input type="checkbox" id="science" name="subjects" value="Science">
+              <label for="science">Science</label>
+            </div>
+            <div class="subject-checkbox">
+              <input type="checkbox" id="physics" name="subjects" value="Physics">
+              <label for="physics">Physics</label>
+            </div>
+            <div class="subject-checkbox">
+              <input type="checkbox" id="chemistry" name="subjects" value="Chemistry">
+              <label for="chemistry">Chemistry</label>
+            </div>
+            <div class="subject-checkbox">
+              <input type="checkbox" id="maths" name="subjects" value="Mathematics">
+              <label for="maths">Mathematics</label>
+            </div>
+            <div class="subject-checkbox">
+              <input type="checkbox" id="english" name="subjects" value="English">
+              <label for="english">English</label>
+            </div>
+            <div class="subject-checkbox">
+              <input type="checkbox" id="hindi" name="subjects" value="Hindi">
+              <label for="hindi">Hindi</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">Approve & Assign Subjects</button>
+          <a href="{{ url_for('admin.pending_teachers') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

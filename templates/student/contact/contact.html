@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | ADM Classes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin: 0; background: #f8fafc; }
+    .page-shell { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+    .page-header { text-align: center; margin-bottom: 40px; }
+    .page-header h1 { margin: 0 0 12px; color: #1e293b; font-size: 32px; }
+    .page-header p { color: #64748b; margin: 0; }
+    .teachers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .teacher-card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .teacher-card h3 { margin: 0 0 8px; color: #1e293b; }
+    .teacher-card .role { color: #10b981; font-size: 14px; margin-bottom: 12px; }
+    .teacher-card .info { display: flex; align-items: center; gap: 8px; color: #64748b; margin-bottom: 8px; }
+    .teacher-card .info i { color: #3b82f6; }
+    .teacher-card .specialization { background: #eff6ff; color: #1d4ed8; padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; margin-top: 12px; }
+    .contact-info { background: #fff; border-radius: 16px; padding: 32px; margin-top: 40px; text-align: center; }
+    .contact-info h2 { margin: 0 0 16px; color: #1e293b; }
+    .contact-info p { color: #64748b; margin: 0 0 24px; }
+    .contact-methods { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+    .contact-method { text-align: center; }
+    .contact-method i { font-size: 32px; color: #3b82f6; margin-bottom: 8px; }
+    .contact-method p { margin: 0; color: #64748b; }
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
+        {% for category, message in messages %}
+          <div style="padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; {% if category == 'error' %}background: #fee2e2; color: #991b1b;{% else %}background: #d1fae5; color: #065f46;{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <div class="page-shell">
+    <div class="page-header">
+      <h1>Contact Us</h1>
+      <p>Get in touch with our teachers and support team</p>
+    </div>
+
+    <div class="teachers-grid">
+      {% if teachers %}
+        {% for teacher in teachers %}
+        <div class="teacher-card">
+          <h3>{{ teacher.name }}</h3>
+          <div class="role">Teacher</div>
+          <div class="info">
+            <i class="fas fa-envelope"></i>
+            <span>{{ teacher.email }}</span>
+          </div>
+          {% if teacher.phone %}
+          <div class="info">
+            <i class="fas fa-phone"></i>
+            <span>{{ teacher.phone }}</span>
+          </div>
+          {% endif %}
+          {% if teacher.specialization %}
+          <div class="specialization">{{ teacher.specialization }}</div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      {% else %}
+      <p style="text-align: center; color: #64748b;">No teachers available at the moment.</p>
+      {% endif %}
+    </div>
+
+    <div class="contact-info">
+      <h2>Other Ways to Reach Us</h2>
+      <p>Have a question? We're here to help!</p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <i class="fas fa-envelope"></i>
+          <p>admclasses@gmail.com</p>
+        </div>
+        <div class="contact-method">
+          <i class="fas fa-phone"></i>
+          <p>+91 98765 43210</p>
+        </div>
+        <div class="contact-method">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>ADM Classes, Education Zone</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

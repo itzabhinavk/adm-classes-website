@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Courses | ADM Classes</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+<style>
+  body {
+     font-family:'Poppins', sans-serif; 
+     margin:0; background:#eef2ff; 
+     color:#111827; 
+    }
+  .page-shell { 
+    max-width:1180px; 
+    margin:0 auto; 
+    padding:24px 20px; 
+  }
+  .top-bar { 
+    display:flex; 
+    justify-content:space-between; 
+    align-items:flex-end; 
+    flex-wrap:wrap; 
+    gap:18px; 
+    margin-bottom:20px; 
+  }
+  .top-bar h1 { 
+    margin:0; 
+    font-size:30px; 
+  }
+  .top-bar .subtitle { 
+    color:#475569; 
+    margin-top:6px; 
+  }
+  .nav-links { 
+    display:flex; 
+    flex-wrap:wrap; 
+    gap:12px; 
+    margin-bottom:24px; 
+  }
+  .nav-links a { 
+    text-decoration:none; 
+    color:#475569; 
+    background:#fff; 
+    border:1px solid #dbeafe; 
+    padding:10px 16px; 
+    border-radius:999px; 
+    transition:all .2s ease; 
+  }
+  .nav-links a.active, .nav-links a:hover { 
+    color:#1d4ed8; 
+    background:#eff6ff; 
+    border-color:#bfdbfe; 
+  }
+  .table-card { 
+    background:#fff; 
+    border:1px solid #dbeafe; 
+    border-radius:20px; 
+    overflow:hidden; 
+    box-shadow:0 15px 30px rgba(15,23,42,0.05); 
+  }
+  table { 
+    width:100%; 
+    border-collapse:collapse; 
+  }
+  th, td { 
+    padding:16px 18px; 
+    border-bottom:1px solid #e2e8f0; 
+    font-size:14px; 
+  }
+  th { 
+    background:#eff6ff; 
+    font-weight:700; 
+    color:#1e293b; 
+  }
+  tr:hover td { 
+    background:#f8fbff; 
+  }
+  .btn { 
+    display:inline-flex; 
+    align-items:center; 
+    justify-content:center; 
+    padding:10px 14px; 
+    border-radius:999px; 
+    color:#1d4ed8; 
+    border:1px solid #bfdbfe; 
+    text-decoration:none; 
+    transition:all .2s ease; 
+  }
+  .btn:hover { 
+    background:#eff6ff; 
+  }
+  .empty-state { 
+    background:#fff; 
+    border:1px dashed #cbd5e1; 
+    border-radius:18px; 
+    padding:28px; 
+    text-align:center; 
+    color:#64748b; 
+    }
+</style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="top-bar">
+      <div>
+        <h1>My Courses</h1>
+        <p class="subtitle">Review and manage your current course assignments.</p>
+      </div>
+      <div>{{ user_name }}</div>
+    </div>
+    <div class="nav-links">
+      <a href="{{ url_for('teacher.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('teacher.courses') }}" class="active">My Courses</a>
+      <a href="{{ url_for('teacher.add_content') }}">Create Class</a>
+      <a href="{{ url_for('teacher.students') }}">Students</a>
+      <a href="{{ url_for('teacher.profile') }}">Profile</a>
+    </div>
+    {% if courses %}
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Course / Batch</th>
+              <th>Semester / Branch</th>
+              <th>Subject</th>
+              <th>Students</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for course in courses %}
+              <tr>
+                <td>{{ course.title }}</td>
+                <td>{{ course.category }}</td>
+                <td>{{ course.level }}</td>
+                <td>—</td>
+                <td><a class="btn" href="{{ url_for('teacher.courses') }}">View</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">No courses assigned yet. Create a class to fill this page with active content.</div>
+    {% endif %}
+  </div>
+</body>
+</html>          </td>
+        
+
+        
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// future filtering logic
+console.log("My Courses page loaded");
+</script>
+
+</body>
+</html>
