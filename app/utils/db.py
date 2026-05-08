@@ -1,4 +1,5 @@
-"""
+import os
+'"""
 Database utility functions
 """
 import pymysql
