@@ -9,8 +9,8 @@ db_config = {
     "host": os.environ.get('DB_HOST', 'localhost'),      # MySQL server host
     "user": os.environ.get('DB_USER', 'root'),           # MySQL username
     "password": os.environ.get('DB_PASSWORD', ''),       # MySQL password
-    "database": os.environ.get('DB_NAME', 'railway')         # Database name
-    "port": int(os.environ.get('DB_PORT', 3306)),        # MySQL port
+    "database": os.environ.get('DB_NAME', '')         # Database name
+    "port": int(os.environ.get('DB_PORT', '3306')),        # MySQL port
 
 }
 
