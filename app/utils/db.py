@@ -1,6 +1,7 @@
 """
 Database utility functions
 """
+import os
 import pymysql
 from config import db_config
 from flask import current_app
@@ -15,11 +16,11 @@ def get_db_connection():
         except RuntimeError:
             config = db_config
         return pymysql.connect(
-            "host": os.environ.get('DB_HOST', 'localhost'),      # MySQL server host
-            "user": os.environ.get('DB_USER', 'root'),           # MySQL username
-            "password": os.environ.get('DB_PASSWORD', ''),       # MySQL password
-            "database": os.environ.get('DB_NAME', ''),        # Database name
-            "port": int(os.environ.get('DB_PORT', 3306)), 
+            host=config.get('DB_HOST', 'localhost'),
+            user=config.get('DB_USER', 'root'),
+            password=config.get('DB_PASSWORD', ''),
+            database=config.get('DB_NAME', ''),
+            port=int(config.get('DB_PORT', 3306)),
             cursorclass=pymysql.cursors.DictCursor,
             charset='utf8mb4',
             autocommit=False,
