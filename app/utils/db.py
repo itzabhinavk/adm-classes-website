@@ -19,6 +19,7 @@ def get_db_connection():
             user=config.get('user', 'root'),
             password=config.get('password', ''),
             database=config.get('database', ''),
+            port=int(config.get('port', 3306)),
             cursorclass=pymysql.cursors.DictCursor,
             charset='utf8mb4',
             autocommit=False,
