@@ -1,4 +1,4 @@
-'"""
+"""
 Database utility functions
 """
 import pymysql
