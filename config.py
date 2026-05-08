@@ -8,8 +8,8 @@ import os
 db_config = {
     "host": os.environ.get('DB_HOST', 'localhost'),      # MySQL server host
     "user": os.environ.get('DB_USER', 'root'),           # MySQL username
-    "password": os.environ.get('DB_PASSWORD', 'Shubham#1204'),       # MySQL password
-    "database": os.environ.get('DB_NAME', 'adm')         # Database name
+    "password": os.environ.get('DB_PASSWORD', ''),       # MySQL password
+    "database": os.environ.get('DB_NAME', '')         # Database name
 }
 
 # OAuth Configuration (Google & GitHub)
