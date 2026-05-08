@@ -8,11 +8,11 @@ from werkzeug.security import generate_password_hash
 # Database connection
 def get_connection():
     return pymysql.connect(
-        host=os.environ.get('DB_HOST', 'localhost'),
+        host=os.environ.get('DB_HOST', 'turntable.proxy.rlwy.net'),
         user=os.environ.get('DB_USER', 'root'),
         password=os.environ.get('DB_PASSWORD', ''),
-        database=os.environ.get('DB_NAME', 'adm'),
-        port=int(os.environ.get('DB_PORT', 3306)),
+        database=os.environ.get('DB_NAME', ''),
+        port=int(os.environ.get('DB_PORT', 19211)),
         cursorclass=pymysql.cursors.DictCursor
     )
 def create_users():
