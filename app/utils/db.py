@@ -15,11 +15,11 @@ def get_db_connection():
         except RuntimeError:
             config = db_config
         return pymysql.connect(
-            host=config.get('host', 'localhost'),
-            user=config.get('user', 'root'),
-            password=config.get('password', ''),
-            database=config.get('database', ''),
-            port=int(config.get('port', 3306)),
+            "host": os.environ.get('DB_HOST', 'localhost'),      # MySQL server host
+            "user": os.environ.get('DB_USER', 'root'),           # MySQL username
+            "password": os.environ.get('DB_PASSWORD', ''),       # MySQL password
+            "database": os.environ.get('DB_NAME', ''),        # Database name
+            "port": int(os.environ.get('DB_PORT', 3306)), 
             cursorclass=pymysql.cursors.DictCursor,
             charset='utf8mb4',
             autocommit=False,
