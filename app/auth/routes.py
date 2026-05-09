@@ -9,8 +9,6 @@ from app.utils.db import get_user_by_email, create_user, user_exists
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-from werkzeug.security import generate_password_hash
-from app.utils.db import create_user
 
 @auth_bp.route('/create-admin')
 def create_admin():
