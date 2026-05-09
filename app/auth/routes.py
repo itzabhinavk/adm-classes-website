@@ -40,7 +40,7 @@ def login():
         try:
             user = get_user_by_email(email)
         except Exception as err:
-            flash('Database connection failed. Please try again later.', 'error')
+            flash('Database connection failed. Please try again later. some time wait plzz', 'error')
             return redirect(url_for('auth.login'))
         
         # Verify user exists, password is correct, and role matches (for security)
