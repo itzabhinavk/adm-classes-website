@@ -10,19 +10,6 @@ from app.utils.db import get_user_by_email, create_user, user_exists
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
-@auth_bp.route('/create-admin')
-def create_admin():
-    password = generate_password_hash("admin123")
-
-    create_user(
-        name="Admin",
-        email="admin@gmail.com",
-        password=password,
-        role="admin",
-        phone="9999999999"
-    )
-
-    return "Admin Created Successfully"
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     """
