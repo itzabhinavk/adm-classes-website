@@ -13,7 +13,7 @@ def get_db_connection():
     try:
         
         return pymysql.connect(
-            host=cos.getenv('DB_HOST'),
+            host=os.getenv('DB_HOST'),
             user=os.getenv('DB_USER', 'root'),
             password=os.getenvt('DB_PASSWORD', ),
             database=os.getenv('DB_NAME', ),
