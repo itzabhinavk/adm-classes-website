@@ -18,13 +18,13 @@ db_config = {
 # Get these from Google Cloud Console and GitHub Developer Settings
 OAUTH_CONFIG = {
     "google": {
-        "client_id": os.environ.get('GOOGLE_CLIENT_ID', '1004428945612-8lcivej5uvumv5dfunh37madur7jgug6.apps.googleusercontent.com'),
-        "client_secret": os.environ.get('GOOGLE_CLIENT_SECRET', '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'),
+        "client_id": os.environ.get('GOOGLE_CLIENT_ID', ),
+        "client_secret": os.environ.get('GOOGLE_CLIENT_SECRET', ),
         "redirect_uri": os.environ.get('GOOGLE_REDIRECT_URI', '/auth/google/callback')
     },
     "github": {
-        "client_id": os.environ.get('GITHUB_CLIENT_ID', 'Ov23li60etrfZQ7iwI3d'),
-        "client_secret": os.environ.get('GITHUB_CLIENT_SECRET', '1608b431a4c9aad3690f300a83ca6329b3a10e70'),
+        "client_id": os.environ.get('GITHUB_CLIENT_ID', ),
+        "client_secret": os.environ.get('GITHUB_CLIENT_SECRET', ),
         "redirect_uri": os.environ.get('GITHUB_REDIRECT_URI', '/auth/github/callback')
     }
 }
