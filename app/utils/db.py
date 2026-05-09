@@ -16,11 +16,11 @@ def get_db_connection():
         except RuntimeError:
             config = db_config
         return pymysql.connect(
-            host=config.get('DB_HOST', 'turntable.proxy.rlwy.net'),
+            host=config.get('DB_HOST', ''),
             user=config.get('DB_USER', 'root'),
             password=config.get('DB_PASSWORD', ''),
             database=config.get('DB_NAME', ''),
-            port=int(config.get('DB_PORT', 19211)),
+            port=int(config.get('DB_PORT', )),
             cursorclass=pymysql.cursors.DictCursor,
             charset='utf8mb4',
             autocommit=False,
