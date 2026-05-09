@@ -11,16 +11,13 @@ def get_db_connection():
     Get a new database connection
     """
     try:
-        try:
-            config = current_app.config.get('DATABASE_CONFIG', db_config)
-        except RuntimeError:
-            config = db_config
+        
         return pymysql.connect(
-            host=config.get('DB_HOST', ''),
-            user=config.get('DB_USER', 'root'),
-            password=config.get('DB_PASSWORD', ''),
-            database=config.get('DB_NAME', ''),
-            port=int(config.get('DB_PORT', )),
+            host=cos.getenv('DB_HOST'),
+            user=os.getenv('DB_USER', 'root'),
+            password=os.getenvt('DB_PASSWORD', ),
+            database=os.getenv('DB_NAME', ),
+            port=int(os.getenv('DB_PORT', )),
             cursorclass=pymysql.cursors.DictCursor,
             charset='utf8mb4',
             autocommit=False,
