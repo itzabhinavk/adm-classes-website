@@ -211,7 +211,7 @@ def google_login():
     from config import OAUTH_CONFIG
     
     google_config = OAUTH_CONFIG.get('google', {})
-    client_id = google_config.get('client_id', '')
+    client_id = google_config.get('client_id', )
     redirect_uri = google_config.get('redirect_uri', '')
     
     if not client_id:
@@ -242,7 +242,7 @@ def google_callback():
         return redirect(url_for('auth.login'))
     
     google_config = OAUTH_CONFIG.get('google', {})
-    client_id = google_config.get('client_id', '')
+    client_id = google_config.get('client_id', )
     client_secret = google_config.get('client_secret', '')
     redirect_uri = google_config.get('redirect_uri', '')
     
